@@ -44,3 +44,6 @@ TagManager:
   - name: Sprites
     uniqueID: 1174896053
     locked: 0
+  - name: Player
+    uniqueID: 487225177
+    locked: 0
