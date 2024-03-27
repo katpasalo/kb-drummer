@@ -8,16 +8,19 @@ using TMPro;
 public abstract class MainMenuOption : MonoBehaviour
 {
     public Canvas thoughtCanvas;
-    public TMPro.TMP_Text textMeshPro;
     public Sprite thoughtActive;
     public Sprite thoughtPassive;
-    public SpriteRenderer sr;
+
+    private TMPro.TMP_Text textMeshPro;
+    private SpriteRenderer sr;
 
     public virtual string thoughtText{get;}
 
     void Awake()
     {
         thoughtCanvas.enabled = false;
+        textMeshPro = thoughtCanvas.transform.GetComponentInChildren<TMPro.TMP_Text>();
+        sr = thoughtCanvas.transform.GetComponentInChildren<SpriteRenderer>();
         sr.enabled = false;
     }
 
