@@ -55,16 +55,12 @@ public class PlayerMovement : MonoBehaviour
         // animator.SetFloat("Vertical", movement.y);
         animator.SetFloat("Speed", movement.sqrMagnitude);
 
-        // If the input is moving the player right and the player is facing left...
         if (movement.x > 0 && !isFacingRight)
         {
-            // ... flip the player.
             Flip();
         }
-        // Otherwise if the input is moving the player left and the player is facing right...
         else if (movement.x < 0 && isFacingRight)
         {
-            // ... flip the player.
             Flip();
         }
     }
@@ -76,12 +72,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Flip()
     {
-        // Switch the way the player is labelled as facing.
         isFacingRight = !isFacingRight;
-
-        // Multiply the player's x local scale by -1.
-        Vector3 theScale = transform.localScale;
-        theScale.x *= -1;
-        transform.localScale = theScale;
+        GetComponent<SpriteRenderer>().flipX = !isFacingRight;
     }
 }
