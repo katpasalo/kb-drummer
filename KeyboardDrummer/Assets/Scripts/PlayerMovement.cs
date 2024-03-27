@@ -10,35 +10,23 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Functional Options")]
     [SerializeField] private bool canMove = true;
-    [SerializeField] private bool canInteract = true;
+    [SerializeField] private bool canSelect = true;
 
     [Header("Controls")]
-    // [SerializeField] private KeyCode interactKey = KeyCode.KeypadEnter;
+    [SerializeField] private KeyCode selectKey = KeyCode.Return;
 
     [Header("Movement Parameters")]
     [SerializeField] private float moveSpeed = 0.5f;
 
-    [Header("Interaction")]
-    // private Interactable currentInteractable;
-
-    // private bool isMoving = false;
     private bool isFacingRight = true;
+    private Vector2 interactionRange = new Vector2(0.1f,1f);
     Vector2 movement;
 
     // Update is called once per frame
     void Update()
     {
-        if (canMove) 
-        {
-            if (canInteract) 
-            {
-                // HandleInteractionCheck();
-                // HandleInteractionInput();
-            }
-
-            HandleMovement();
-
-        }        
+        if (canMove) {HandleMovement();}
+        if (canSelect && Input.GetKeyDown(selectKey)) {HandleSelection();}
     }
 
     void FixedUpdate()
@@ -74,5 +62,22 @@ public class PlayerMovement : MonoBehaviour
     {
         isFacingRight = !isFacingRight;
         GetComponent<SpriteRenderer>().flipX = !isFacingRight;
+    }
+
+    private void HandleSelection()
+    {
+        RaycastHit2D[] hits = Physics2D.BoxCastAll(transform.position, interactionRange, 0, Vector2.zero);
+
+        if(hits.Length > 0)
+        {
+            foreach(RaycastHit2D rc in hits)
+            {
+                if(rc.transform.GetComponent<MainMenuOption>())
+                {
+                    rc.transform.GetComponent<MainMenuOption>().Select();
+                    return;
+                }
+            }
+        }
     }
 }
