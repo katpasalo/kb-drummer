@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Interaction;
-// using System.IO;
-// using UniyuEngine.Networking;
+using System.IO;
+using UnityEngine.Networking;
+using System;
+
 
 public class SongManager : MonoBehaviour
 {
@@ -15,7 +17,7 @@ public class SongManager : MonoBehaviour
     public double marginOfError; //s
     public int inputDelay; //ms
 
-    public string fileLocation;
+    public string midiFilename;
     public float noteTime; //time note will be on screen (Spawn to Tap)
     public float noteSpawnY;
     public float noteTapY;
@@ -37,15 +39,9 @@ public class SongManager : MonoBehaviour
         ReadFromFile();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void ReadFromFile()
     {
-        midiFile = MidiFile.Read(Application.streamingAssetsPath + "/" + fileLocation);
+        midiFile = MidiFile.Read("Assets/Audio/" + midiFilename);
         GetMidiData();
     }
 
@@ -67,6 +63,6 @@ public class SongManager : MonoBehaviour
 
     public static double GetAudioSourceTime()
     {
-        return Instance.audioSource.timeSamples / Instance.audioSource.clip.frequency;
+        return (double)Instance.audioSource.timeSamples / Instance.audioSource.clip.frequency;
     }
 }

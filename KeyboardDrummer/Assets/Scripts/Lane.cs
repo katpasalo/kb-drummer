@@ -12,14 +12,8 @@ public class Lane : MonoBehaviour
     List<Note> notes = new List<Note>();
     public List<double> timeStamps = new List<double>();
 
-    int spawnIndex = 0; //what timestamp needs to be spawned
+    public int spawnIndex = 0; //what timestamp needs to be spawned
     int inputIndex = 0; //what timestamp is hit
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
